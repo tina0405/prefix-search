@@ -139,6 +139,7 @@ int main(int argc, char **argv)
             res = tst_ins_del(&root, &p, DEL, CPY);
             t2 = tvgetf();
             if (res)
+
                 printf("  delete failed.\n");
             else {
                 printf("  deleted %s in %.6f sec\n", word, t2 - t1);
