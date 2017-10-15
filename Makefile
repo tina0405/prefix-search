@@ -2,7 +2,7 @@ TESTS = \
     test_cpy \
     test_ref
 
-CFLAGS = -Wall -Werror -g
+CFLAGS = -Wall -Werror -g 
 
 # Control the build verbosity                                                   
 ifeq ("$(VERBOSE)","1")
@@ -41,6 +41,13 @@ test_%: test_%.o $(OBJS_LIB)
 	$(VECHO) "  CC\t$@\n"
 	$(Q)$(CC) -o $@ $(CFLAGS) -c -MMD -MF .$@.d $<
 
+bench:  $(TESTS)
+	perf stat --repeat 100 \
+                -e cache-misses,cache-references,instructions,cycles \
+                ./test_cpy --bench s In
+	perf stat --repeat 100 \
+                -e cache-misses,cache-references,instructions,cycles \
+                ./test_ref --bench s In
 clean:
 	$(RM) $(TESTS) $(OBJS)
 	$(RM) $(deps)
