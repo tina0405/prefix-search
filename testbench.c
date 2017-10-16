@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <time.h>
 #include "testbench.h"
-#define FILE_IN "cities_3000.txt"
+#define FILE_IN "cities_new.txt"
 #define PREFIX_SIZE 3
 static inline __attribute__((always_inline))
 void get_cycles(unsigned *high, unsigned *low)
