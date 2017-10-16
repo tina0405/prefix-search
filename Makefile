@@ -24,8 +24,8 @@ $(GIT_HOOKS):
 	@echo
 
 OBJS_LIB = \
-    tst.o
-
+    tst.o \
+    testbench.o
 OBJS := \
     $(OBJS_LIB) \
     test_cpy.o \
@@ -48,8 +48,11 @@ bench:  $(TESTS)
 	perf stat --repeat 100 \
                 -e cache-misses,cache-references,instructions,cycles \
                 ./test_ref --bench s In
+plot: out_cpy.txt out_ref.txt
+	gnuplot scripts/runtime.gp
+
 clean:
 	$(RM) $(TESTS) $(OBJS)
-	$(RM) $(deps)
+	$(RM) $(deps) out_cpy.txt out_ref.txt
 
 -include $(deps)

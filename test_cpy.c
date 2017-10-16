@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-
+#include "testbench.h"
 #include "tst.h"
-
+#define FILE_CPY "out_cpy.txt"
 /** constants insert, delete, max word(s) & stack nodes */
 enum { INS, DEL, WRDMAX = 256, STKMAX = 512, LMAX = 1024 };
 #define REF INS
 #define CPY DEL
-
+#define DATA_COUNT 4
 /* timing helper function */
 static double tvgetf(void)
 {
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
     FILE *fp = fopen(IN_FILE, "r");
     double t1, t2;
     int b_flag = 0;
-    if(argc == 4 && !strcmp("--bench", argv[1]))
+    if(!strcmp("--bench", argv[1]))
         b_flag = 1;
     if (!fp) { /* prompt, open, validate file for reading */
         fprintf(stderr, "error: file open failed '%s'.\n", argv[1]);
@@ -130,6 +130,7 @@ int main(int argc, char **argv)
             if(b_flag == 1) {
                 strcpy(word , argv[3]);
                 printf("%s\n",word);
+                prefix_search_testbench(root,FILE_CPY);
             } else {
                 if (!fgets(word, sizeof word, stdin)) {
                     fprintf(stderr, "error: insufficient input.\n");

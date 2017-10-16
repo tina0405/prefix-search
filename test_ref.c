@@ -3,8 +3,9 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include "testbench.h"
 #include "tst.h"
-
+#define FILE_REF "out_ref.txt"
 /** constants insert, delete, max word(s) & stack nodes */
 enum { INS, DEL, WRDMAX = 256, STKMAX = 512, LMAX = 1024 };
 #define REF INS
@@ -131,6 +132,7 @@ int main(int argc, char **argv)
             if(b_flag == 1) {
                 strcpy(word , argv[3]);
                 printf("%s\n", word);
+                prefix_search_testbench(root,FILE_REF);
             } else {
                 if (!fgets(word, sizeof word, stdin)) {
                     fprintf(stderr, "error: insufficient input.\n");
